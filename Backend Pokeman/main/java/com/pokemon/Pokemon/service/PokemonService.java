@@ -34,16 +34,22 @@ public class PokemonService {
         return pokemonRepository.save(pokemon);
     }
 
-    public Pokemon updatePokemon(String id, Pokemon pokemon) {
-        if (pokemonRepository.existsById(id)) {
-            pokemon.setName(pokemon.getName());
-            pokemon.setHeight(pokemon.getHeight());
-            pokemon.setBaseExperience(pokemon.getBaseExperience());
-            pokemon.setWeight(pokemon.getWeight());
-            pokemon.setOrder(pokemon.getOrder());
-            return pokemonRepository.save(pokemon);
+    public Pokemon updatePokemon(String id, Pokemon updatedPokemon) {
+        Optional<Pokemon> existingPokemon = pokemonRepository.findById(id);
+
+        if (existingPokemon.isPresent()) {
+            Pokemon pokemonToUpdate = existingPokemon.get();
+
+            pokemonToUpdate.setName(updatedPokemon.getName());
+            pokemonToUpdate.setHeight(updatedPokemon.getHeight());
+            pokemonToUpdate.setBaseExperience(updatedPokemon.getBaseExperience());
+            pokemonToUpdate.setWeight(updatedPokemon.getWeight());
+            pokemonToUpdate.setOrder(updatedPokemon.getOrder());
+
+            return pokemonRepository.save(pokemonToUpdate);
         }
-        return null;
+
+        return null; 
     }
 
     public void deletePokemon(String id) {
