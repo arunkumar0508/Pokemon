@@ -1,0 +1,20 @@
+<div class="body"></div>
+<div class="heading">
+  <h1>Pokemon Cards</h1>
+</div>
+<div class="poke-container">
+  <div *ngFor="let pokemon of displayedPokemon" class="pokemon">
+    <a [routerLink]="['/details', pokemon.id]">
+      <div class="img-container">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{{pokemon.id}}.png" alt="" />
+      </div>
+      <div class="info">
+        <span class="number">#{{ pokemon.id }}</span>
+        <h3 class="name">{{ pokemon.name }}</h3>
+      </div>
+    </a>
+  </div>
+</div>
+<button class="floating-btn" (click)="loadMoreData()">
+  Load more
+</button>
